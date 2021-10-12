@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<!-- 일반회원의 페이지 설정 -->
+	<definition name="baseLayout" template="/WEB-INF/views/template/base_template.jsp">
+		<put-attribute name="title" value="Shop"/>
+		<put-attribute name="menu" value="/WEB-INF/views/template/menu.jsp"/>
+		<put-attribute name="body" value=""/>
+	</definition>
+	
+	<!-- 관리자의 페이지 설정 -->
+	<definition name="adminLayout" template="/WEB-INF/views/template/admin_template.jsp">
+		<put-attribute name="title" value="Shop"/>
+		<put-attribute name="menu" value="/WEB-INF/views/template/menu.jsp"/>
+		<put-attribute name="side" value="/WEB-INF/views/template/admin_side.jsp"/>
+		<put-attribute name="body" value=""/>
+	</definition>
+	
+	<!-- 시작하면 인덱스에서 컨트롤러러 갔다가 servlet-context.xml 가서 tiles-config.xml 로 간다 -->
+	<!-- 컨트롤러에서 item/item_list 받아오는데 */*형식이면 앞에께 {1} 뒤에꺼가 {2} -->
+	<!-- 쉽게 {1}이 폴더명 {2}이 페이지명 -->
+	<definition name="admin/*" extends="adminLayout">
+		<put-attribute name="body" value="/WEB-INF/views/admin/{1}.jsp"/>
+	</definition>
+	
+	<definition name="*/*" extends="baseLayout">
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp"/>
+	</definition>
+	
+	
+</tiles-definitions>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

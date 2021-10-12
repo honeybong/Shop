@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 모든 SQL문을 mapper태그 안에 작성 -->
+<mapper namespace="itemMapper">
+	<!-- item관련 -->
+ 	<resultMap type="com.spring.shop.item.vo.itemVO" id="item">
+		<id column="ITEM_CODE" 			property="itemCode"/>
+		<result column="ITEM_NAME" 		property="itemName"/>
+		<result column="ITEM_PRICE" 	property="itemPrice"/>
+		<result column="REG_DATE" 		property="regDate"/>
+		<result column="CATE_CODE" 		property="cateCode"/>
+	</resultMap>
+ 	<!-- category 관련 -->
+ 	<resultMap type="com.spring.shop.item.vo.CategoryVO" id="category">
+		<id column="CATE_CODE" 			property="cateCode"/>
+		<result column="CATE_NAME" 		property="cateName"/>
+	</resultMap>
+	
+	<!-- 카테고리 검색 -->
+	<select id="selectCategoryList" resultMap="category">
+		SELECT CATE_CODE
+			, CATE_NAME
+		FROM ITEM_CATEGORY
+		ORDER BY CATE_CODE DESC
+	</select>
+	
+	<!-- 카테고리 등록 -->
+	<insert id="insertCategory">
+		INSERT INTO ITEM_CATEGORY(
+			CATE_CODE
+			, CATE_NAME
+		) VALUES (
+			(SELECT 'CATE_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(CATE_CODE, 6, 3))), 0) + 1, 3, '0') FROM ITEM_CATEGORY)
+			, #{cateName}
+		)
+		
+	</insert>
+	
+	<!-- 카테고리 삭제 -->
+	<!-- 아이템 삭제(카테고리 삭제용) -->
+	<delete id="deleteCategory">
+		DELETE ITEM_CATEGORY
+		WHERE CATE_CODE = #{cateCode}
+	</delete>
+	
+	<!-- 아이템 등록 -->
+	<insert id="insertItem">
+		INSERT INTO BOOK_ITEM(
+			ITEM_CODE
+			, ITEM_NAME
+			, ITEM_PRICE
+			, CATE_CODE
+		) VALUES (
+			(SELECT 'ITEM_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(ITEM_CODE, 6, 3))), 0) + 1, 3, '0') FROM BOOK_ITEM)
+			, #{itemName}
+			, #{itemPrice}
+			, #{cateCode}
+		)
+	</insert>
+	
+	<delete id="deleteItemByCateCode">
+		DELETE BOOK_ITEM
+		WHERE CATE_CODE = #{cateCode}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

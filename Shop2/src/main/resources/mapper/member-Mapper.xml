@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 모든 SQL문을 mapper태그 안에 작성 -->
+<mapper namespace="memberMapper">
+	<resultMap type="com.spring.shop.member.vo.memberVO" id="member">
+		<id column="ID" 			property="id" />
+		<result column="PW" 		property="pw" />
+		<result column="NAME" 		property="name" />
+		<result column="TELL" 		property="tell" />
+		<result column="ADDR" 		property="addr" />
+		<result column="GENDER" 	property="gender" />
+		<result column="IS_ADMIN" 	property="isAdmin" />
+		<result column="JOIN_DATE" 	property="joinDate" />
+	</resultMap>
+	<!-- 회원가입 -->
+	<insert id="insertJoin">
+		INSERT INTO BOOK_MEMBER (
+			ID
+			, PW
+			, NAME
+			, TELL
+			, ADDR
+			, GENDER
+		) VALUES (
+			#{id}
+			, #{pw}
+			, #{name}
+			, #{tell}
+			, #{addr}
+			, #{gender}
+		)
+	</insert>
+	<!-- 로그인 -->
+	<select id="login" resultMap="member">
+		SELECT ID
+			, IS_ADMIN
+			, NAME
+		FROM BOOK_MEMBER
+		WHERE ID = #{id}
+		AND PW = #{pw}
+	</select>
+	
+	<!-- 중복체크 -->
+	<select id="isJoined" resultType="String">
+		SELECT ID
+		FROM BOOK_MEMBER
+		WHERE ID = #{id}
+	</select>
+	
+	<!-- 회원 목록 조회 -->
+	<select id="memberList" resultMap="member">
+	SELECT ID
+		, NAME
+		, TELL
+		, ADDR
+		, GENDER
+		, TO_CHAR(JOIN_DATE,'YYYY-MM-DD') AS JOIN_DATE
+	FROM BOOK_MEMBER
+	WHERE IS_ADMIN = 'N'
+	ORDER BY ID, NAME
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
