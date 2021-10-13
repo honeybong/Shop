@@ -17,5 +17,10 @@ public interface itemService {
 	
 	//상품 등록
 	void insetItem(itemVO itemVO);
+	
+	//상품 이미지 정보
+	void insertImgs(itemVO itemVO);
 
+	//다음 img_code의 숫자를 확인
+	int selectNextNumber();
 }

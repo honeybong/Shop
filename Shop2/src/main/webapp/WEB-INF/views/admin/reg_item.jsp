@@ -25,7 +25,7 @@
       <div style="height: 20px;"></div>
       <div class="row">
          <div class="col myContainer">
-            <form class="row g-3" action="/admin/regItem" method="post">
+            <form class="row g-3" action="/admin/regItem" method="post" enctype="multipart/form-data">
                <div class="col-6">
                   <label for="itemCategory" class="form-label">Choose Category</label>
                   <select class="form-select" id="itemCategory" name="cateCode">
@@ -44,11 +44,11 @@
                </div>
                <div class="col-12">
                   <label for="formFile" class="form-label">Choose representative Image</label>
-                    <input class="form-control" type="file" id="formFile">
+                    <input class="form-control" type="file" id="formFile" name="file1">
                </div>
                <div class="col-12">
                   <label for="formFileMultiple" class="form-label">Choose Additory Images</label>
-                    <input class="form-control" type="file" id="formFileMultiple" multiple>
+                    <input class="form-control" type="file" id="formFileMultiple" name="file2" multiple>
                </div>
                <div class="col-12 text-center">
                    <input type="submit" class="btn btn-primary" value="REGISTRATION">

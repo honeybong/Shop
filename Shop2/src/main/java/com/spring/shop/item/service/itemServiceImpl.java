@@ -40,5 +40,16 @@ public class itemServiceImpl implements itemService {
 		sqlSession.insert("itemMapper.insertItem", itemVO);
 		
 	}
+	//상품 이미지 정보
+	@Override
+	public void insertImgs(itemVO itemVO) {
+		sqlSession.insert("itemMapper.insertImgs", itemVO);
+		
+	}
+	//다음 img_code의 숫자를 확인
+	@Override
+	public int selectNextNumber() {
+		return sqlSession.selectOne("itemMapper.SselectNextNumber");
+	}
 
 }

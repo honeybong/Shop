@@ -49,4 +49,11 @@
       <property name="dataSource" ref="dataSource"></property>
    </bean>
 	
+   <!-- 파일업로드 -->
+   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+      <!-- 용량 -->
+      <property name="maxUploadSize" value="10485760" />
+      <property name="defaultEncoding" value="UTF-8"/>
+   </bean>
+	
 </beans>

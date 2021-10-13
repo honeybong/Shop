@@ -15,6 +15,14 @@
 		<id column="CATE_CODE" 			property="cateCode"/>
 		<result column="CATE_NAME" 		property="cateName"/>
 	</resultMap>
+	<!-- 이미지 관련 -->
+	<resultMap type="com.spring.shop.item.vo.imgVO" id="img">
+		<id column="IMG_CODE" 				property="imgCode"/>
+		<result column="ORIGIN_IMG_NAME" 	property="originImgName"/>
+		<result column="ATTACHED_IMG_NAME" 	property="attachedImgName"/>
+		<result column="ITEM_CODE" 			property="itemCode"/>
+		<result column="IS_MAIN" 			property="isMain"/>
+	</resultMap>
 	
 	<!-- 카테고리 검색 -->
 	<select id="selectCategoryList" resultMap="category">
@@ -62,6 +70,32 @@
 		DELETE BOOK_ITEM
 		WHERE CATE_CODE = #{cateCode}
 	</delete>
+	
+	<!-- 첨부파일 등록 -->
+	<insert id="insertImgs">
+		INSERT INTO BOOK_IMG (
+			IMG_CODE
+			, ORIGIN_IMG_NAME
+			, ATTACHED_IMG_NAME
+			, ITEM_CODE
+			, IS_MAIN
+		)
+		<!-- imgInfo로 하나씩 빼겠다 separator은 리스트횟수만큼 저걸 넣겠다 -->
+		<foreach collection="imgList" item="imgInfo" separator="UNION ALL">
+			SELECT #{imgInfo.imgCode}
+				, #{imgInfo.originImgName}
+				, #{imgInfo.attachedImgName}
+				, #{imgInfo.itemCode}
+				, #{imgInfo.isMain}
+			FROM DUAL
+		</foreach>
+	</insert>
+	
+	<!-- 첨부파일 갯수확인? -->
+	<select id="SselectNextNumber" resultType="int">
+		SELECT NVL(MAX(TO_NUMBER(SUBSTR(IMG_CODE, 5, 3))) +1, 1) FROM BOOK_IMG
+	</select>
+	
 </mapper>
 
 
