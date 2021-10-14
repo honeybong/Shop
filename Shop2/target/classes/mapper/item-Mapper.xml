@@ -9,12 +9,15 @@
 		<result column="ITEM_PRICE" 	property="itemPrice"/>
 		<result column="REG_DATE" 		property="regDate"/>
 		<result column="CATE_CODE" 		property="cateCode"/>
+		<collection property="imgList" 	resultMap="img"/>
 	</resultMap>
+ 
  	<!-- category 관련 -->
  	<resultMap type="com.spring.shop.item.vo.CategoryVO" id="category">
 		<id column="CATE_CODE" 			property="cateCode"/>
 		<result column="CATE_NAME" 		property="cateName"/>
 	</resultMap>
+
 	<!-- 이미지 관련 -->
 	<resultMap type="com.spring.shop.item.vo.imgVO" id="img">
 		<id column="IMG_CODE" 				property="imgCode"/>
@@ -23,6 +26,26 @@
 		<result column="ITEM_CODE" 			property="itemCode"/>
 		<result column="IS_MAIN" 			property="isMain"/>
 	</resultMap>
+	
+	<!-- 게시판 관련 -->
+	<resultMap type="com.spring.shop.item.vo.BoardVO" id="board">
+		<id column="BOARD_NUM" 			property="boardNum"/>
+		<result column="TITLE" 			property="title"/>
+		<result column="WRITER" 		property="writer"/>
+		<result column="CREATE_DATE" 	property="createDate"/>
+	</resultMap>
+	
+	<!-- 아이템 목록 조회 -->
+	<select id="selectItemList" resultMap="item">
+		SELECT ITEM.ITEM_CODE
+		    , ITEM_NAME
+		    , ITEM_PRICE
+		    , IMG.ATTACHED_IMG_NAME
+		FROM BOOK_ITEM ITEM, BOOK_IMG IMG
+		WHERE ITEM.ITEM_CODE = IMG.ITEM_CODE
+		AND IS_MAIN = 'Y'
+		ORDER BY REG_DATE DESC
+	</select>
 	
 	<!-- 카테고리 검색 -->
 	<select id="selectCategoryList" resultMap="category">
@@ -59,12 +82,17 @@
 			, ITEM_PRICE
 			, CATE_CODE
 		) VALUES (
-			(SELECT 'ITEM_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(ITEM_CODE, 6, 3))), 0) + 1, 3, '0') FROM BOOK_ITEM)
+			#{itemCode}
 			, #{itemName}
 			, #{itemPrice}
 			, #{cateCode}
 		)
 	</insert>
+	
+	<!-- item코드 확인 -->
+	<select id="selectNextItemCode" resultType="String">
+		SELECT 'ITEM_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(ITEM_CODE, 6, 3))), 0) + 1, 3, '0') FROM BOOK_ITEM
+	</select>
 	
 	<delete id="deleteItemByCateCode">
 		DELETE BOOK_ITEM
@@ -96,6 +124,32 @@
 		SELECT NVL(MAX(TO_NUMBER(SUBSTR(IMG_CODE, 5, 3))) +1, 1) FROM BOOK_IMG
 	</select>
 	
+	<!-- 게시판 목록 조회 -->
+	<select id="selectBoardList" resultMap="board">
+		SELECT BOARD_NUM
+			, TITLE
+			, WRITER
+			, CREATE_DATE
+			, ROW_NUM
+		FROM
+		(
+			SELECT BOARD_NUM
+				, TITLE
+				, WRITER
+				, CREATE_DATE
+				, ROWNUM AS ROW_NUM
+			FROM
+			(
+				SELECT BOARD_NUM
+					, TITLE
+					, WRITER
+					, TO_CHAR(CREATE_DATE,'YYYY-MM-DD') AS CREATE_DATE
+				FROM BOOK_BOARD
+				ORDER BY BOARD_NUM DESC
+			)
+		)
+		
+	</select>
 </mapper>
 
 

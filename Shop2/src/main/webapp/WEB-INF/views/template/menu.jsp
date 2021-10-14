@@ -53,6 +53,7 @@ span:hover{
 									<c:forEach items="${categoryList }" var="categoryInfo">
 									<a class="nav-link active" aria-current="page" href="/item/categoryManage">${categoryInfo.cateName }</a>
 									</c:forEach>
+									<a class="nav-link active" aria-current="page" href="/item/boardList">커뮤니티</a>
 								</c:when>
 								<c:otherwise>
 									<c:forEach items="${menuList}" var="menuInfo">

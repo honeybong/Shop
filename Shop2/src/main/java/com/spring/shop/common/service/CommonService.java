@@ -12,4 +12,5 @@ public interface CommonService {
 	
 	//사이드 메뉴 목록 조회
 	List<SideMenuVO> selectSideMenuList(String menuCode);
+
 }
