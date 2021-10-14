@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="row">
-	<div class="col-8 container-fluid">
+	<div class="col-8 text-center container-fluid">
 		<table class="table">
 			<thead>
 				<tr>
