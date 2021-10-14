@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.spring.shop.item.vo.BoardVO;
 import com.spring.shop.item.vo.CategoryVO;
 import com.spring.shop.item.vo.itemVO;
 
@@ -15,6 +16,12 @@ public class itemServiceImpl implements itemService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+	//상품 목록 조회
+	@Override
+	public List<itemVO> selectItemList() {
+		
+		return sqlSession.selectList("itemMapper.selectItemList");
+	}
 	//카테고리 목록조회
 	@Override
 	public List<CategoryVO> selectCategoryList() {
@@ -51,5 +58,16 @@ public class itemServiceImpl implements itemService {
 	public int selectNextNumber() {
 		return sqlSession.selectOne("itemMapper.SselectNextNumber");
 	}
+	//다음 ITEM_CODE를 확인
+	@Override
+	public String selectNextItemCode() {
+		return sqlSession.selectOne("itemMapper.selectNextItemCode");
+	}
+	//게시판 목록
+	@Override
+	public List<BoardVO> selectBoardList() {
+		return sqlSession.selectList("itemMapper.selectBoardList");
+	}
+
 
 }

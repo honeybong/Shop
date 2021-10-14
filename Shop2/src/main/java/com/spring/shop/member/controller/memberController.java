@@ -39,6 +39,8 @@ public class memberController {
 	}
 	
 	//로그인
+
+	
 	@PostMapping("/login")
 	public String login(memberVO memberVO, HttpSession session) {
 		memberVO loginInfo = memberServic.login(memberVO);
@@ -47,14 +49,8 @@ public class memberController {
 			if(loginInfo.getIsAdmin().equals("Y")) {
 				return "redirect:/admin/categoryManage";
 			}
-			else {
-				return "redirect:/item/itemList";
-			}
 		}
-		
-		
-		return "redirect:/member/login";
-		
+		return "redirect:/item/itemList";
 	}
 	//로그아웃
 	@GetMapping("/Logout")

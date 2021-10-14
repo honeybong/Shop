@@ -105,18 +105,25 @@ public class AdminController {
 		
 		
 		//첨부될 폴더
-		String uploadPath = "C:\\Users\\a\\git\\Shop\\Shop2\\src\\main\\webapp\\resources\\images\\";
+		//집
+//		String uploadPath = "C:\\Users\\a\\git\\Shop\\Shop2\\src\\main\\webapp\\resources\\images\\";
+		//학원
+		String uploadPath = "C:\\Users\\kh202-25\\git\\Shop_bong\\Shop2\\src\\main\\webapp\\resources\\images\\";
 		
 		//모든 첨부파일 정보가 들어갈 공간
 		List<imgVO> imgList = new ArrayList<>();
+		
+		//다음에 들어갈 item_code 조회
+		String itemCode = itemService.selectNextItemCode();
 
+		//다음에 들어갈 IMG_CODE의 숫자를 조회
+		int nextImgCode = itemService.selectNextNumber();//얘는 1234 이런식으로 나옴.근데 코드는 IMG_001 이런식 10이 넘어가면?
+		
 		while(inputNames.hasNext()) {
 			//와일문 돌면서 인풋네임즈 하나씩 인풋네임에 넣겠다
 			String inputName = inputNames.next();
 			
 			//상품 이미지 정보 insert 를 하기 위해서!
-			//다음에 들어갈 IMG_CODE의 숫자를 조회
-			int nextImgCode = itemService.selectNextNumber();//얘는 1234 이런식으로 나옴.근데 코드는 IMG_001 이런식 10이 넘어가면?
 			String a = String.format("%03d", nextImgCode);//d 는 뒤에 nextImgCode 3은 3자리수 0은 남는거를 0으로만듬 %는 뭐여?
 			
 			//파일 첨부
@@ -127,7 +134,7 @@ public class AdminController {
 					
 					for(MultipartFile file : fileList) {
 						String attachedFileName = fileUploadUtil.getNowDateTime() + "_" + file.getOriginalFilename();
-						String uploadFile = uploadPath + fileUploadUtil.getNowDateTime() + "_" + file.getOriginalFilename();
+						String uploadFile = uploadPath + attachedFileName;
 						//실제 파일 첨부하는거
 						file.transferTo(new File(uploadFile));
 						
@@ -135,7 +142,7 @@ public class AdminController {
 						img.setImgCode("IMG_" + String.format("%03d", nextImgCode++));
 						img.setOriginImgName(file.getOriginalFilename());
 						img.setAttachedImgName(attachedFileName);
-						img.setItemCode();
+						img.setItemCode(itemCode);
 						img.setIsMain("N");
 						
 						imgList.add(img);
@@ -147,7 +154,7 @@ public class AdminController {
 					//얘는 늦게 만들었다
 					//fileUploadUtil.getNowDateTime() + "_" + file.getOriginalFilename(); 얘는 그냥 쓰다가 이름이 변해서 변수로만듬
 					String attachedFileName = fileUploadUtil.getNowDateTime() + "_" + file.getOriginalFilename();
-					String uploadFile = uploadPath + fileUploadUtil.getNowDateTime() + "_" + file.getOriginalFilename();
+					String uploadFile = uploadPath + attachedFileName;
 					//실제 파일 첨부하는거
 					file.transferTo(new File(uploadFile));
 					
@@ -155,7 +162,7 @@ public class AdminController {
 					img.setImgCode("IMG_" + String.format("%03d", nextImgCode++));
 					img.setOriginImgName(file.getOriginalFilename());
 					img.setAttachedImgName(attachedFileName);
-					img.setItemCode();
+					img.setItemCode(itemCode);
 					img.setIsMain("Y");
 					
 					imgList.add(img);
@@ -170,12 +177,12 @@ public class AdminController {
 		}
 		
 		//상품 정보 insert
+		itemVO.setItemCode(itemCode);
+		
 		itemService.insetItem(itemVO);
 		
 		//상품 이미지 정보 insert 를 하기 위해서!
-
-		
-		imgVO img = new imgVO();
+		itemVO.setImgList(imgList);
 		
 		itemService.insertImgs(itemVO);
 		
