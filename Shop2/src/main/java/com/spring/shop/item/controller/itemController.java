@@ -5,9 +5,12 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.spring.shop.common.vo.PageVO;
 import com.spring.shop.item.service.itemService;
+import com.spring.shop.item.vo.BoardVO;
 
 @Controller
 @RequestMapping("/item")
@@ -24,10 +27,18 @@ public class itemController {
 		return "item/item_list";
 	}
 	//게시판 목록조회
-	@GetMapping("/boardList")
-	public String selectBoardList(Model model) {
+	@RequestMapping("/boardList") //얘로쓰면 get post 다 받을수 있음
+	public String selectBoardList(Model model, BoardVO boardVO) {
+		//PageVO안에 totalCnt 구하기. 전체 데이터 수
+		int dataCnt = itemService.selectBoardCnt();
+		boardVO.setTotalCnt(dataCnt);
+		
+		//페이징처리
+		boardVO.setPageInfo();
+		
+		//jsp에 뿌리기
 		model.addAttribute("categoryList", itemService.selectCategoryList());
-		model.addAttribute("boardList", itemService.selectBoardList());
+		model.addAttribute("boardList", itemService.selectBoardList(boardVO));
 		return "item/community_list";
 		
 	}

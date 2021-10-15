@@ -2,6 +2,7 @@ package com.spring.shop.item.service;
 
 import java.util.List;
 
+import com.spring.shop.common.vo.PageVO;
 import com.spring.shop.item.vo.BoardVO;
 import com.spring.shop.item.vo.CategoryVO;
 import com.spring.shop.item.vo.itemVO;
@@ -32,6 +33,8 @@ public interface itemService {
 	String selectNextItemCode();
 	
 	//게시판 목록 조회
-	//게시판 목록 조회
-	List<BoardVO> selectBoardList();
+	List<BoardVO> selectBoardList(BoardVO boardVO);
+	
+	//게시판 전체 개수 조회
+	int selectBoardCnt();
 }
