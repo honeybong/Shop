@@ -106,9 +106,9 @@ public class AdminController {
 		
 		//첨부될 폴더
 		//집
-//		String uploadPath = "C:\\Users\\a\\git\\Shop\\Shop2\\src\\main\\webapp\\resources\\images\\";
+		String uploadPath = "C:\\Users\\a\\git\\Shop\\Shop2\\src\\main\\webapp\\resources\\images\\";
 		//학원
-		String uploadPath = "C:\\Users\\kh202-25\\git\\Shop_bong\\Shop2\\src\\main\\webapp\\resources\\images\\";
+//		String uploadPath = "C:\\Users\\kh202-25\\git\\Shop_bong\\Shop2\\src\\main\\webapp\\resources\\images\\";
 		
 		//모든 첨부파일 정보가 들어갈 공간
 		List<imgVO> imgList = new ArrayList<>();
