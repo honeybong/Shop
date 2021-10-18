@@ -1,6 +1,8 @@
 package com.spring.shop.item.vo;
 
-public class BoardVO {
+import com.spring.shop.common.vo.PageVO;
+
+public class BoardVO extends PageVO{
 	private int boardNum;
 	private String title;
 	private String writer;

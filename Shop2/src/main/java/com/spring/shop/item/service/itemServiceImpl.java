@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.spring.shop.common.vo.PageVO;
 import com.spring.shop.item.vo.BoardVO;
 import com.spring.shop.item.vo.CategoryVO;
 import com.spring.shop.item.vo.itemVO;
@@ -65,9 +66,16 @@ public class itemServiceImpl implements itemService {
 	}
 	//게시판 목록
 	@Override
-	public List<BoardVO> selectBoardList() {
-		return sqlSession.selectList("itemMapper.selectBoardList");
+	public List<BoardVO> selectBoardList(BoardVO boardVO) {
+		return sqlSession.selectList("itemMapper.selectBoardList", boardVO);
 	}
+	@Override
+	//게시판 전체 개수 조회
+	public int selectBoardCnt() {
+		return sqlSession.selectOne("itemMapper.selectBoardCnt");
+	}
+	
+
 
 
 }

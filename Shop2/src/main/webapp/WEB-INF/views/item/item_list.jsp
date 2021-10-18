@@ -8,11 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:forEach items="${itemList }" var="itemInfo">
-		<c:forEach items="${itemInfo.imgList}" var="img">
-			${img.attachedImgName}
-		</c:forEach>
-	</c:forEach>
 <div class="row">
 	<c:forEach items="${itemList }" var="itemInfo">
 		<div class="col-2">

@@ -145,11 +145,22 @@
 					, WRITER
 					, TO_CHAR(CREATE_DATE,'YYYY-MM-DD') AS CREATE_DATE
 				FROM BOOK_BOARD
+				<if test="searchValue != null and !searchValue.equals('')">
+					WHERE ${searchKeyword} LIKE '%'||#{searchValue}||'%'
+				</if>
 				ORDER BY BOARD_NUM DESC
 			)
 		)
-		
+		WHERE ROW_NUM &gt;= #{startNum} AND ROW_NUM &lt;= #{endNum}
 	</select>
+	
+	<!-- 게시글 전체 데이터 개수 조회 -->
+	<!-- MAX쓰면 안된다 중간에 지웠다가 새로만들면 board_num 숫자 커지는데 그거 최고값을 구해버림 -->
+	<select id="selectBoardCnt" resultType="int">
+		SELECT COUNT(BOARD_NUM) 
+		FROM BOOK_BOARD
+	</select>
+	
 </mapper>
 
 
