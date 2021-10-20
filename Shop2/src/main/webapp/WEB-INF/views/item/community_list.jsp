@@ -18,27 +18,7 @@ a.selectedPage{
 </style>
 </head>
 <body>
-	<div class="row">
-		<div class="col">
-			<nav class="navbar navbar-light bg-light">
-				<form class="/item/boardList" method="post">
-					<div class="container-fluid input-group">
-						<select class="form-select me-2" aria-label="Default select example" name="searchKeyword">
-							<option selected value="title">제목</option>
-							<option value="writer">작성자</option>
-						</select>
-						<input type="text" class="form-control me-2" name="searchValue">
-						<button class="btn btn-outline-success" type="submit">Search</button>
-					</div>
-				</form>
-			</nav>
-		</div>
-	</div>
-
-
-
 <div class="row">
-<<<<<<< HEAD
 	<div class="col">
 		<nav class="navbar navbar-light bg-light">
 			<form class="/item/boardList" method="post">
@@ -54,12 +34,7 @@ a.selectedPage{
 		</nav>
 	</div>
 </div>
-
-
-
 <div class="row">
-=======
->>>>>>> refs/remotes/origin/master
 	<div class="col-8 text-center container-fluid">
 		<table class="table">
 			<thead>
