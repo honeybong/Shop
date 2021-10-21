@@ -36,5 +36,5 @@ public interface itemService {
 	List<BoardVO> selectBoardList(BoardVO boardVO);
 	
 	//게시판 전체 개수 조회
-	int selectBoardCnt();
+	int selectBoardCnt(BoardVO boardVO);
 }

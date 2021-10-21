@@ -27,7 +27,7 @@ a.selectedPage{
 						<option selected value="title">제목</option>
 						<option value="writer">작성자</option>
 					</select>
-					<input type="text" class="form-control me-2" name="searchValue">
+					<input type="text" class="form-control me-2" name="searchValue" value="${boardVO.searchValue }">
 					<button class="btn btn-outline-success" type="submit">Search</button>
 				</div>
 			</form>
@@ -83,7 +83,7 @@ a.selectedPage{
 				</li>
 				<c:forEach begin="${boardVO.beginPage }" end="${boardVO.endPage }" var="pageNumber">
 					<li class="page-item <c:if test="${boardVO.nowPage eq pageNumber }">active</c:if>" <c:if test="${boardVO.nowPage eq pageNumber }">aria-current="page"</c:if>>
-						<a class="page-link" href="/item/boardList?nowPage=${pageNumber}">
+						<a class="page-link" href="/item/boardList?nowPage=${pageNumber}&searchKeyword=${boardVO.searchKeyword}&searchValue=${boardVO.searchValue}">
 							${pageNumber}
 						</a>
 					</li>

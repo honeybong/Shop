@@ -71,8 +71,8 @@ public class itemServiceImpl implements itemService {
 	}
 	@Override
 	//게시판 전체 개수 조회
-	public int selectBoardCnt() {
-		return sqlSession.selectOne("itemMapper.selectBoardCnt");
+	public int selectBoardCnt(BoardVO boardVO) {
+		return sqlSession.selectOne("itemMapper.selectBoardCnt", boardVO);
 	}
 	
 

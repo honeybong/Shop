@@ -156,9 +156,13 @@
 	
 	<!-- 게시글 전체 데이터 개수 조회 -->
 	<!-- MAX쓰면 안된다 중간에 지웠다가 새로만들면 board_num 숫자 커지는데 그거 최고값을 구해버림 -->
+	<!-- 검색 조건도 넣어줘야 페이징처리 똑바로됨 -->
 	<select id="selectBoardCnt" resultType="int">
 		SELECT COUNT(BOARD_NUM) 
 		FROM BOOK_BOARD
+		<if test="searchValue != null and !searchValue.equals('')">
+			WHERE ${searchKeyword} LIKE '%'||#{searchValue}||'%'
+		</if>
 	</select>
 	
 </mapper>

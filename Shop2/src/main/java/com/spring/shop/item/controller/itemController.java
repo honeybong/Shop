@@ -30,7 +30,8 @@ public class itemController {
 	@RequestMapping("/boardList") //얘로쓰면 get post 다 받을수 있음
 	public String selectBoardList(Model model, BoardVO boardVO) {
 		//PageVO안에 totalCnt 구하기. 전체 데이터 수
-		int dataCnt = itemService.selectBoardCnt();
+		//검색조건 값을 채워주기 위해 boardVO .넣음 상속땜에 써도됨
+		int dataCnt = itemService.selectBoardCnt(boardVO);
 		boardVO.setTotalCnt(dataCnt);
 		
 		//페이징처리
