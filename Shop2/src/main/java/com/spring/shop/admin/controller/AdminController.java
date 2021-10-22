@@ -43,8 +43,9 @@ public class AdminController {
 		model.addAttribute("sidePage", "categoryManage");
 		//일반회원 메뉴목록 조회
 		model.addAttribute("categoryList", itemService.selectCategoryList());
+		
 		//관리자 메뉴목록 조회
-		model.addAttribute("menuList", commonService.selectMenuList());
+//		model.addAttribute("menuList", commonService.selectMenuList());
 		
 		//사이드 메뉴 목록 조회
 		model.addAttribute("sideMenuList", commonService.selectSideMenuList("MENU_001"));
