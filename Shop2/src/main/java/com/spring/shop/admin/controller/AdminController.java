@@ -125,7 +125,7 @@ public class AdminController {
 			String inputName = inputNames.next();
 			
 			//상품 이미지 정보 insert 를 하기 위해서!
-			String a = String.format("%03d", nextImgCode);//d 는 뒤에 nextImgCode 3은 3자리수 0은 남는거를 0으로만듬 %는 뭐여?
+			String a = String.format("%03d", nextImgCode++);//d 는 뒤에 nextImgCode 3은 3자리수 0은 남는거를 0으로만듬 %는 뭐여?
 			
 			//파일 첨부
 			try {
@@ -169,10 +169,10 @@ public class AdminController {
 					imgList.add(img);
 				}
 			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
+				// 업로드 예외 발생 시
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				// 파일 입출력 예외 발생 시
 				e.printStackTrace();
 			}
 		}
